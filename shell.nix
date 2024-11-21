@@ -15,7 +15,7 @@ pkgs.mkShell {
         python3 -m venv .venv
         source .venv/bin/activate
 
-        pip install django
+        pip install django Pillow
 
         alias cls='clear'
         alias validate='django-admin --version'
@@ -24,6 +24,7 @@ pkgs.mkShell {
         alias makemigrations='python manage.py makemigrations '
         alias sqlmigrate='python manage.py sqlmigrate topics 0001'
         alias migrate='python manage.py migrate'
+        alias updatedb='makemigrations; sqlmigrate; migrate'
         alias createsuperuser='python manage.py createsuperuser'
         alias runserver='python manage.py runserver'
         alias run='echo "Nothing to run :("'
