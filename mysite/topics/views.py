@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.contrib import messages
 from .models import Topic, Comment
-from .forms import CommentForm, TopicForm
+from .forms import CommentForm, TopicForm, RegisterForm, LoginForm
 
 def topic_list(request):
     topics = Topic.objects.annotate(
@@ -99,3 +100,39 @@ def profile_view(request):
         'user_topics': user_topics,
         'user_comments': user_comments
     })
+
+def register_view(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            messages.success(request, 'Account created successfully!')
+            return redirect('login')
+    else:
+        form = RegisterForm()
+    return render(request, 'topics/register.html', {'form': form})
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, 'Login successful!')
+                return redirect('topic_list')
+            else:
+                messages.error(request, 'Invalid credentials.')
+    else:
+        form = LoginForm()
+    return render(request, 'topics/login.html', {'form': form})
+
+@login_required
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'Logged out successfully!')
+    return redirect('topic_list')

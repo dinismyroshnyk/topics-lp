@@ -10,4 +10,7 @@ urlpatterns = [
     path('comment/<int:topic_id>/delete/', views.delete_topic, name='delete_topic'),
     path('topic/new/', views.create_topic, name='create_topic'),
     path('profile/', views.profile_view, name='profile'),
+    path('register/', views.register_view, name='register'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
 ]
