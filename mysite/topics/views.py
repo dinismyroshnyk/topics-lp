@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.contrib import messages
 from .models import Topic, Comment
-from .forms import CommentForm
+from .forms import CommentForm, TopicForm
 
 def topic_list(request):
     topics = Topic.objects.annotate(
@@ -46,3 +46,33 @@ def delete_comment(request, comment_id):
     comment.delete()
     messages.success(request, 'Comment deleted successfully!')
     return redirect('topic_detail', topic_id=topic_id)
+
+@login_required
+def edit_topic(request, topic_id):
+    topic = get_object_or_404(Topic, pk=topic_id)
+    if request.user != topic.author:
+        messages.error(request, 'You can only edit your own topics!')
+        return redirect('topic_detail', topic_id=topic.id)
+
+    if request.method == 'POST':
+        form = TopicForm(request.POST, instance=topic)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Topic updated successfully!')
+            return redirect('topic_detail', topic_id=topic.id)
+    else:
+        form = TopicForm(instance=topic)
+    return render(request, 'topics/edit_topic.html', {'form': form, 'topic': topic})
+
+@login_required
+def delete_topic(request, topic_id):
+    topic = get_object_or_404(Topic, pk=topic_id)
+    if request.user != topic.author:
+        messages.error(request, 'You can only delete your own topics!')
+        return redirect('topic_detail', topic_id=topic.id)
+
+    if request.method == 'POST':
+        topic.delete()
+        messages.success(request, 'Topic deleted successfully!')
+        return redirect('topic_list')
+    return render(request, 'topics/delete_topic.html', {'topic': topic})
