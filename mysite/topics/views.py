@@ -76,3 +76,17 @@ def delete_topic(request, topic_id):
         messages.success(request, 'Topic deleted successfully!')
         return redirect('topic_list')
     return render(request, 'topics/delete_topic.html', {'topic': topic})
+
+@login_required
+def create_topic(request):
+    if request.method == 'POST':
+        form = TopicForm(request.POST)
+        if form.is_valid():
+            topic = form.save(commit=False)
+            topic.author = request.user
+            topic.save()
+            messages.success(request, 'Topic created successfully!')
+            return redirect('topic_detail', topic_id=topic.id)
+    else:
+        form = TopicForm()
+    return render(request, 'topics/create_topic.html', {'form': form})
