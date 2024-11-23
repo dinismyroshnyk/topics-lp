@@ -12,7 +12,7 @@
             <a class="navbar-brand" href="{% url 'topic_list' %}">Discussion Forum</a>
             <div class="navbar-nav">
                 <a class="nav-item nav-link" href="{% url 'create_topic' %}">Create Topic</a>
-                <a class="nav-item nav-link" {% comment %} href="{% url 'profile' %}" {% endcomment %}>Profile</a>
+                <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
                 {% if user.is_authenticated %}
                     <a class="nav-item nav-link">Logout</a>
                 {% else %}

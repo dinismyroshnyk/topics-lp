@@ -90,3 +90,12 @@ def create_topic(request):
     else:
         form = TopicForm()
     return render(request, 'topics/create_topic.html', {'form': form})
+
+@login_required
+def profile_view(request):
+    user_topics = request.user.topics.all()
+    user_comments = request.user.comments.all()
+    return render(request, 'topics/profile.html', {
+        'user_topics': user_topics,
+        'user_comments': user_comments
+    })
