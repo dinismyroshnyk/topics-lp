@@ -15,7 +15,7 @@ pkgs.mkShell {
         python3 -m venv .venv
         source .venv/bin/activate
 
-        pip install django Pillow
+        pip install django Pillow django-crispy-forms crispy-bootstrap5
 
         alias cls='clear'
         alias validate='django-admin --version'
