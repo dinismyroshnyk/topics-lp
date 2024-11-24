@@ -1,94 +1,90 @@
-# Documentação para a Aplicação Django
+# Topics - Aplicação de Fórum em Django
 
-## VIEWS.PY
+Esta é uma aplicação web desenvolvida em Django que permite a gestão de tópicos de discussão, similar a um fórum. Os usuários podem criar tópicos, adicionar comentários e interagir com o conteúdo.
 
-Este ficheiro contém as views para a aplicação Django. As views são responsáveis por gerir a lógica da aplicação e devolver as respostas apropriadas ao utilizador.
+## Funcionalidades
 
-### Index View
-A index view gere a exibição da página principal da aplicação.
+- Criação, visualização, edição e exclusão de tópicos
+- Sistema de comentários em tópicos
+- Autenticação de usuários
+- Interface responsiva e amigável
+- Formulários aprimorados com django-crispy-forms
 
-### Detail View
-A detail view gere a exibição de informações detalhadas para um item específico.
+## Requisitos
 
-### Create View
-A create view gere a criação de novos itens na aplicação.
+- Python 3.8+
+- Django 4.0+
+- django-crispy-forms
+- Virtualenv (recomendado)
 
-### Update View
-A update view gere a atualização de itens existentes na aplicação.
+## Instalação
 
-### Delete View
-A delete view gere a eliminação de itens da aplicação.
+1. Clone o repositório:
+```bash
+git clone https://github.com/dinismyroshnyk/topics-lp
+cd topics
+```
 
-## MODELS.PY
+2. Crie e ative um ambiente virtual:
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+```
 
-Este ficheiro contém os modelos para a aplicação Django. Os modelos definem a estrutura da base de dados e as relações entre diferentes peças de dados.
+3. Instale as dependências:
+```bash
+pip install -r requirements.txt
+```
 
-### Item Model
-O item model define a estrutura dos itens na aplicação, incluindo campos como nome, descrição e preço.
+4. Execute as migrações:
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
 
-## FORMS.PY
+5. Crie um superutilizador:
+```bash
+python manage.py createsuperuser
+```
 
-Este ficheiro contém os formulários para a aplicação Django. Os formulários são usados para gerir a entrada do utilizador e validar os dados antes de serem guardados na base de dados.
+6. Inicie o servidor de desenvolvimento:
+```bash
+python manage.py runserver
+```
 
-### ItemForm
-O ItemForm é usado para criar e atualizar itens na aplicação.
+## Estrutura do Projeto
 
-## URLS.PY
+```
+topics/
+├── manage.py
+├── requirements.txt
+├── topics/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── forum/
+    ├── models.py
+    ├── views.py
+    ├── urls.py
+    ├── forms.py
+    ├── admin.py
+    └── tests.py
+```
 
-Este ficheiro contém as configurações de URL para a aplicação Django. As URLs definem as diferentes rotas que os utilizadores podem seguir dentro da aplicação.
+## Executando os Testes
 
-### Index URL
-A index URL direciona para a index view.
+Para executar os testes unitários:
 
-### Detail URL
-A detail URL direciona para a detail view de um item específico.
+```bash
+python manage.py test
+```
 
-### Create URL
-A create URL direciona para a create view.
+## Contribuindo
 
-### Update URL
-A update URL direciona para a update view de um item específico.
-
-### Delete URL
-A delete URL direciona para a delete view de um item específico.
-
-## SETTINGS.PY
-
-Este ficheiro contém as configurações para a aplicação Django. As configurações definem a configuração da aplicação, incluindo configurações da base de dados, apps instaladas e middleware.
-
-### Configurações da Base de Dados
-As configurações da base de dados definem a configuração para a base de dados usada pela aplicação.
-
-### Apps Instaladas
-A secção de apps instaladas lista as apps que estão instaladas e usadas pela aplicação.
-
-### Middleware
-A secção de middleware lista o middleware que é usado pela aplicação.
-
-## README.MD
-
-Este ficheiro contém a documentação para a aplicação Django. Fornece uma visão geral da aplicação e explica como configurá-la e usá-la.
-
-### Configuração
-Para configurar a aplicação, siga estes passos:
-1. Instale as dependências necessárias.
-2. Configure as definições da base de dados em `settings.py`.
-3. Execute as migrações da base de dados.
-4. Inicie o servidor de desenvolvimento.
-
-### Utilização
-Para usar a aplicação, siga estes passos:
-1. Navegue até à página principal da aplicação.
-2. Use os links de navegação para aceder a diferentes partes da aplicação.
-3. Use os formulários para criar, atualizar e eliminar itens na aplicação.
-
-### Contribuição
-Para contribuir para a aplicação, siga estes passos:
-1. Faça um fork do repositório.
-2. Crie um novo branch para as suas alterações.
-3. Faça as suas alterações e faça commit delas.
-4. Envie as suas alterações para o seu fork.
-5. Crie um pull request para fundir as suas alterações no repositório principal.
-
-### Licença
-Esta aplicação está licenciada sob a Licença MIT.
+1. Faça um Fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/nome-da-feature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/nome-da-feature`)
+5. Abra um Pull Request
