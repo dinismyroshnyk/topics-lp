@@ -25,17 +25,27 @@ git clone https://github.com/dinismyroshnyk/topics-lp
 cd topics
 ```
 
-2. Crie e ative um ambiente virtual:
+2. Configuração de um ambiente virtual:
+Para linux ou mac, pode-se instalar o gestor de pacotes nix e usar o comando `nix-shell` a partir da raiz do projeto.
+```bash
+nix-shell
+```
+O ficheiro `shell.nix` já inclui:
+- Criação do ambiente virtual
+- Instalação do Django e dependências
+- Aliases úteis para comandos comuns
+No caso do windows.
 ```bash
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate     # Windows
 ```
 
 3. Instale as dependências:
+No caso do windows:
 ```bash
-pip install -r requirements.txt
+pip install django Pillow django-crispy-forms crispy-bootstrap5
 ```
+No linux ou mac ao utilizar a nix-shell já as instala.
 
 4. Execute as migrações:
 ```bash
