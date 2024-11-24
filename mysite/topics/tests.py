@@ -88,9 +88,8 @@ class ViewTests(TestCase):
     def test_add_comment_view_authenticated(self):
         self.client.login(username='testuser', password='password')
         topic = Topic.objects.create(title='Test Topic', description='Test Description', author=self.user)
-        # Opcional: seguir o redirecionamento para verificar o destino
         follow_response = self.client.get(reverse('add_comment', args=[topic.id]), follow=True)
-        self.assertEqual(follow_response.status_code, 200)  # Página final
+        self.assertEqual(follow_response.status_code, 200)
 
 
     def test_add_comment_view_unauthenticated(self):
@@ -122,7 +121,6 @@ class ViewTests(TestCase):
     def test_delete_topic_view_authenticated(self):
         self.client.login(username='testuser', password='password')
         topic = Topic.objects.create(title='Test Topic', description='Test Description', author=self.user)
-        # Opcional: seguir o redirecionamento e verificar a página de destino
         follow_response = self.client.get(reverse('delete_topic', args=[topic.id]), follow=True)
 
 
